@@ -25,7 +25,7 @@ This product should be positioned as a **Luxury Hotel Commerce + Operations Plat
 ### Architectural consequences
 - Queue driver: **database**.
 - Background orchestration: cron-triggered `php artisan schedule:run` every minute.
-- Integration sync: polling + webhook fallback where supported.
+- Integration sync: polling-first for reliability, with webhooks used as hints for faster updates where supported.
 - Real-time UX features must degrade to polling/refresh.
 - Heavy operations split into chunked, resumable jobs.
 
@@ -180,6 +180,7 @@ Use a modular monolith inside Laravel (domain modules, strict boundaries, shared
 
 ### Tenant model
 - Single database, tenant_id scoped tables (MVP), with migration path to per-tenant DB for enterprise tier.
+- Important: design this from day one with a data-access abstraction boundary (e.g., repository/service contracts) to avoid disruptive refactoring when moving large tenants to isolated databases.
 
 ### Commercial controls
 - Plan-based feature flags.
@@ -195,7 +196,9 @@ Use a modular monolith inside Laravel (domain modules, strict boundaries, shared
 - `hotels`, `hotel_settings`, `brands`
 - `users`, `roles`, `permissions`, `user_hotel_memberships`
 - `room_types`, `rooms`, `rate_plans`, `rate_calendars`, `inventory`
+  - Inventory should be modeled at day granularity with key columns like: `hotel_id`, `room_type_id`, `date`, `total_count`, `blocked_count`, `available_count`, `overbook_limit`, `version`.
 - `bookings`, `booking_rooms`, `booking_guests`, `booking_addons`
+  - `booking_rooms` should explicitly support multi-room/multi-room-type stays under one booking reference (e.g., family suites + standard rooms in one reservation).
 - `guests`, `guest_preferences`, `guest_loyalty_ledgers`
 - `payments`, `payment_transactions`, `refunds`, `invoices`
 
@@ -272,6 +275,8 @@ Use a modular monolith inside Laravel (domain modules, strict boundaries, shared
    - Luxury groups often demand custom exports to finance and BI systems.
 12. **Shared-hosting scalability ceiling not quantified**
    - Define thresholds and upgrade path to VPS/cloud for larger properties.
+13. **Multi-currency strategy not fully defined**
+   - Need clear policy for quote currency vs settlement currency, FX source/rate timestamping, conversion fees, and finance reporting consistency.
 
 ---
 
