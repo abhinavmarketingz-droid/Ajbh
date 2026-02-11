@@ -60,3 +60,13 @@ A release is commercially ready only when all are true:
 5. Add PMS adapter framework + Opera + eZee implementations.
 6. Implement concierge/loyalty guest portal modules.
 7. Finalize SaaS plans/metering/feature flags and onboarding kit.
+
+## 8. Zero-Maintenance Operations Principle
+This product must run for hotels without a dedicated vendor maintenance team.
+
+Mandatory design constraints:
+- Self-healing job retries with safe idempotency defaults
+- In-product diagnostics for sync/payment errors with guided actions
+- One-click recovery actions for non-technical hotel admins
+- Automated daily health checks and summary reports
+- Clear escalation mode only for exceptional partner/API outages

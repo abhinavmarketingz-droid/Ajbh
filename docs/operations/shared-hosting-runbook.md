@@ -39,3 +39,18 @@ Escalate to VPS/cloud when any sustained threshold is exceeded:
 - >20k monthly bookings per tenant
 - >100k integration events/day total
 - Cron backlog not clearing within 10 minutes
+
+## 8. Autonomous Operations (No Dedicated Maintenance Team)
+Design and operate as self-serve by default:
+- Auto-retry transient integration failures with bounded backoff
+- Auto-close resolved conflicts when deterministic rules can be applied
+- Nightly health-check job writes a human-readable summary in admin dashboard
+- Built-in runbooks in admin UI for common failures (credentials expired, mapping missing, payment webhook mismatch)
+- Safe-mode switches to pause specific connectors without breaking direct bookings
+
+## 9. Minimum Self-Serve Monitoring Checklist
+- Booking funnel health (search → payment → confirmation)
+- OTA sync freshness (last successful pull/push timestamps)
+- PMS sync freshness and backlog count
+- Payment reconciliation mismatch count
+- Cron execution heartbeat

@@ -17,7 +17,7 @@
 10. PII encryption key rotation and access policy details
 
 ## Operations & GTM
-11. L1/L2/L3 support and SLA model not finalized
+11. Self-serve in-product recovery UX for non-technical staff not fully specified
 12. Migration toolkit for legacy booking import not specified
 13. BI/export package scope for finance teams unclear
 

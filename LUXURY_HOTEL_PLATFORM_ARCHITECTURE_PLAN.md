@@ -28,6 +28,7 @@ This product should be positioned as a **Luxury Hotel Commerce + Operations Plat
 - Integration sync: polling-first for reliability, with webhooks used as hints for faster updates where supported.
 - Real-time UX features must degrade to polling/refresh.
 - Heavy operations split into chunked, resumable jobs.
+- Operations model: zero-maintenance-by-default (hotel staff should run routine operations without a dedicated vendor maintenance team).
 
 ---
 
@@ -249,7 +250,17 @@ Use a modular monolith inside Laravel (domain modules, strict boundaries, shared
 
 ---
 
-## 10) Major Gaps Identified (Critical Before Build)
+## 10) Zero-Maintenance Operations Model
+
+- Build self-healing integration jobs with bounded retries and deterministic idempotency.
+- Provide admin-facing health dashboard: connector status, sync freshness, retry backlog, payment mismatch counts.
+- Include guided repair actions for common failures (re-auth, remap room/rate, replay safe sync window).
+- Use safe-mode toggles per connector so OTA/PMS issues do not block direct bookings.
+- Generate automated daily operational digest emails for hotel admins.
+
+---
+
+## 11) Major Gaps Identified (Critical Before Build)
 
 1. **Contractual/API access gaps**
    - Opera and some OTA APIs often require certification/commercial agreements.
@@ -267,8 +278,8 @@ Use a modular monolith inside Laravel (domain modules, strict boundaries, shared
    - 2FA/SAML/SSO requirements for enterprise luxury chains not defined.
 8. **Data residency/legal requirements not mapped**
    - Required for multi-country enterprise deals.
-9. **Support/ops model absent**
-   - Need L1/L2/L3 support model, uptime SLA, incident runbooks.
+9. **Autonomous operations UX not fully specified**
+   - Need complete in-product diagnostics and guided recovery for non-technical staff, without dependency on a dedicated maintenance team.
 10. **Migration/onboarding tooling missing**
    - Existing booking/PMS import process is required for faster sales cycles.
 11. **BI/export requirements unclear**
@@ -280,7 +291,7 @@ Use a modular monolith inside Laravel (domain modules, strict boundaries, shared
 
 ---
 
-## 11) Risk Register (with Mitigation)
+## 12) Risk Register (with Mitigation)
 
 - **R1: API certification delays** → start partner onboarding in parallel with core build.
 - **R2: Shared hosting job bottlenecks** → enforce job budgets, chunk size caps, and cron staggering.
@@ -290,7 +301,7 @@ Use a modular monolith inside Laravel (domain modules, strict boundaries, shared
 
 ---
 
-## 12) Implementation Roadmap by Capability Gates (Not Timeline-Based)
+## 13) Implementation Roadmap by Capability Gates (Not Timeline-Based)
 
 ### Gate A — Sellable Core
 - Luxury website + booking engine + Stripe/Paytm + invoices + basic admin.
@@ -314,7 +325,7 @@ Use a modular monolith inside Laravel (domain modules, strict boundaries, shared
 
 ---
 
-## 13) Technical Delivery Standards (So Build Is Predictable)
+## 14) Technical Delivery Standards (So Build Is Predictable)
 
 - API-first internal module boundaries.
 - Strict migration discipline with backward compatibility where possible.
@@ -328,7 +339,7 @@ Use a modular monolith inside Laravel (domain modules, strict boundaries, shared
 
 ---
 
-## 14) Recommended Team Execution Model
+## 15) Recommended Team Execution Model
 
 - **Track 1:** Revenue Core (booking + payments).
 - **Track 2:** Integrations (OTA + PMS contracts and adapters).
@@ -339,7 +350,7 @@ Parallel tracks converge through shared platform contracts to reduce rework.
 
 ---
 
-## 15) Definition of “Ready to Sell to Luxury Hotels”
+## 16) Definition of “Ready to Sell to Luxury Hotels”
 
 A release is commercial-ready when all below are true:
 - Direct booking funnel is stable and conversion-optimized.
@@ -352,7 +363,7 @@ A release is commercial-ready when all below are true:
 
 ---
 
-## 16) Immediate Next Actions
+## 17) Immediate Next Actions
 
 1. Freeze domain glossary and source-of-truth ownership matrix.
 2. Draft adapter contracts for OTA and PMS before implementation.
