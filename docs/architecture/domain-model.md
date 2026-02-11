@@ -67,3 +67,21 @@
 - `data_export_requests`
 - `data_deletion_requests`
 - `retention_policies`
+
+## 8. Relationship Integrity Rules
+- `bookings.hotel_id` must equal all related line items (`booking_rooms`, `booking_addons`, `booking_guests`).
+- `booking_rooms` must carry check-in/check-out and resolved `rate_plan_id` snapshot to prevent downstream pricing drift.
+- `inventory_daily.available_count = total_count - blocked_count - sold_count + release_adjustments` (derived or materialized consistently).
+- `integration_events` must always reference source connector and payload checksum.
+- `conflict_cases` must link to conflicting event IDs and chosen resolution event.
+
+## 9. Default Foreign-Key & Index Blueprint
+- FK: `booking_rooms.booking_id -> bookings.id`
+- FK: `booking_rooms.room_type_id -> room_types.id`
+- FK: `inventory_daily.room_type_id -> room_types.id`
+- FK: `payment_transactions.payment_intent_id -> payment_intents.id`
+- FK: `channel_mappings.channel_connection_id -> channel_connections.id`
+- FK: `pms_mappings.pms_connection_id -> pms_connections.id`
+- Index: (`hotel_id`, `status`, `check_in`) on `bookings`
+- Index: (`hotel_id`, `date`) on `inventory_daily`
+- Index: (`provider`, `external_transaction_id`) unique on `payment_transactions`

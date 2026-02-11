@@ -9,6 +9,7 @@ This repository now includes an execution-ready planning pack to build the produ
 4. `docs/integrations/adapter-contracts.md`
 5. `docs/operations/shared-hosting-runbook.md`
 6. `docs/backlog/gap-register.md`
+7. `docs/architecture/relationship-and-consistency-matrix.md`
 
 ## Existing Architecture Brief
 - `LUXURY_HOTEL_PLATFORM_ARCHITECTURE_PLAN.md`

@@ -32,3 +32,9 @@ For each gap define:
 - Blocking modules
 - Temporary default policy
 - Validation test
+
+## Gap Triage Policy (To Avoid Decision Drift)
+For every gap, maintain:
+- Status: `open`, `decision-pending`, `decided`, `implemented`
+- Default policy in effect while unresolved
+- Owner and validation test reference

@@ -57,3 +57,15 @@ Every adapter action emits:
 - status (success/retry/fail)
 - latency_ms
 - attempt number
+
+## 6. Sync Cursor and Freshness Contract
+- Every pull method returns both records and next cursor token.
+- Cursors are stored per connector + entity type + hotel.
+- If cursor invalidation occurs, adapter must support bounded backfill window replay.
+- Admin UI shows freshness timestamp per connector/entity stream.
+
+## 7. Autonomous Recovery Contract
+- Adapter errors must classify as: transient, auth, mapping, validation, provider-outage.
+- Each class maps to a guided repair action in admin UX.
+- Safe-mode pause/resume must be available per connector.
+- Recovery actions must be idempotent and audit logged.

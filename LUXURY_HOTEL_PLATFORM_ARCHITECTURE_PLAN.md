@@ -372,3 +372,13 @@ A release is commercial-ready when all below are true:
 5. Build a “pilot hotel onboarding kit” (data import templates, setup playbook, QA checklist).
 
 This planning approach ensures the platform is engineered for **integration resilience, commercial reuse, and luxury-grade operations**, while staying compatible with shared hosting constraints from day one.
+
+---
+
+## 18) Cross-Document Consistency & Relationship Checks
+
+Before implementation kickoff, verify consistency with:
+- `docs/architecture/domain-model.md` for entity integrity, FK/index blueprint, and booking/inventory relationship rules.
+- `docs/integrations/adapter-contracts.md` for adapter methods, cursor semantics, and autonomous recovery contract.
+- `docs/operations/shared-hosting-runbook.md` for cron/queue runtime and autonomous operations checklist.
+- `docs/architecture/relationship-and-consistency-matrix.md` as final source-of-truth conflict checker across documents.

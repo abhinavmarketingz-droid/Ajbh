@@ -42,6 +42,7 @@ See:
 - `docs/architecture/domain-model.md`
 - `docs/integrations/adapter-contracts.md`
 - `docs/operations/shared-hosting-runbook.md`
+- `docs/architecture/relationship-and-consistency-matrix.md`
 
 ## 6. Commercial Readiness Checklist
 A release is commercially ready only when all are true:
@@ -70,3 +71,11 @@ Mandatory design constraints:
 - One-click recovery actions for non-technical hotel admins
 - Automated daily health checks and summary reports
 - Clear escalation mode only for exceptional partner/API outages
+
+## 9. Default Decisions to Remove Early Ambiguity
+Use these defaults unless a tenant-specific override is explicitly configured:
+- Source precedence default: PMS (master mode) > OTA confirmed > Direct edit.
+- Inventory grain default: per hotel, room type, date.
+- Currency default: quote in hotel base currency unless explicit market currency enabled.
+- Retry policy default: exponential backoff with dead-letter after max attempts.
+- Operations default: self-serve repair first; vendor escalation only for partner/API outages.

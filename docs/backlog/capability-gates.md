@@ -62,3 +62,16 @@
 - New tenant can onboard without engineering access
 - Plan limits enforced with visible metering
 - White-label domain and branding applied successfully
+
+## Gate F — Autonomous Operations Readiness
+### Scope
+- Connector health dashboard
+- Guided repair flows for auth/mapping/failure classes
+- Safe-mode controls per connector
+- Automated daily operational digest
+
+### Acceptance
+- Non-technical admin can resolve expired credentials without engineering support
+- Mapping issue can be identified and repaired through guided flow
+- Connector safe mode can be toggled without blocking direct booking
+- Health digest generated daily with actionable status summary
