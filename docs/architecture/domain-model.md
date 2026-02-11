@@ -1,0 +1,69 @@
+# Domain Model & Core Data Contracts
+
+## 1. Tenant and Identity
+- `hotels` (tenant root)
+- `hotel_settings` (branding, locale, policies)
+- `users`
+- `roles`, `permissions`
+- `user_hotel_memberships`
+
+**Rules**
+- Every business table includes `hotel_id` unless globally scoped.
+- Access checks require membership + permission claim.
+
+## 2. Booking Domain
+- `room_types`, `rooms`
+- `rate_plans`, `rate_calendars`, `restrictions`
+- `inventory_daily`
+- `bookings`, `booking_rooms`, `booking_addons`
+- `cancellations`, `booking_events`
+
+**Rules**
+- Booking states: initiated, pending_payment, confirmed, cancelled, no_show, checked_in, checked_out.
+- Pricing snapshot copied onto booking at checkout to avoid mutable totals.
+
+## 3. Guest Domain
+- `guests`
+- `guest_profiles`
+- `guest_preferences`
+- `loyalty_accounts`, `loyalty_ledger`
+- `concierge_requests`
+
+## 4. Payment Domain
+- `payment_intents`
+- `payment_transactions`
+- `refunds`
+- `invoices`
+- `settlement_reports`
+
+**Rules**
+- No raw PAN/card storage.
+- External transaction IDs unique per provider.
+
+## 5. Integration Domain
+- `channel_connections`
+- `channel_mappings`
+- `pms_connections`
+- `pms_mappings`
+- `integration_events`
+- `integration_jobs`
+- `integration_failures`
+- `conflict_cases`
+
+**Rules**
+- All inbound payloads are persisted with checksum + idempotency key.
+- Retries capped with dead-letter state.
+
+## 6. SaaS Domain
+- `subscription_plans`
+- `hotel_subscriptions`
+- `feature_flags`
+- `usage_meters`
+- `billing_invoices`
+
+## 7. Audit and Compliance Domain
+- `audit_logs`
+- `consent_records`
+- `data_export_requests`
+- `data_deletion_requests`
+- `retention_policies`
